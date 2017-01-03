@@ -6,13 +6,13 @@
     android:layout_height="match_parent">
     <EditText
         android:id="@+id/et"
-        android:background="@color/colorPrimary"
         android:layout_width="match_parent"
         android:textSize="17sp"
         android:padding="10dp"
         android:gravity="center"
         android:hint="输入金额"
         android:layout_margin="1dp"
+        android:background="@drawable/myselector"
         android:inputType="numberDecimal"
         android:textColorHint="@android:color/white"
         android:textColor="@android:color/white"

@@ -2,7 +2,6 @@ package com.example.dongpeng.myapplication;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -60,7 +59,8 @@ public class MyAdapter extends RecyclerView.Adapter {
                 @Override
                 public void onFocusChange(View v, boolean hasFocus) {
                     if (hasFocus) {
-                        editText.setBackgroundColor(Color.GREEN);
+                        notifyItem(oldPostion);
+                        editText.setSelected(true);
                         listener.onGetMoneyInput(getMoneyString(editText.getText().toString()));
                     }
                 }
@@ -101,21 +101,22 @@ public class MyAdapter extends RecyclerView.Adapter {
                 @Override
                 public void onClick(View v) {
                     textView.setSelected(true);
-                    setColor(position);
+                    if (position!=oldPostion){
+                        notifyItem(position);
+                    }
                     listener.onGetMoneyInput(data.get(position).getMoney());
                     InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
                     if (imm != null) {
                         imm.hideSoftInputFromWindow(((Activity) context).getWindow().getDecorView().getWindowToken(), 0);
                     }
                     editText.clearFocus();
-                    editText.setBackgroundColor(Color.parseColor("#3F51B5"));
-//                    v.setBackgroundColor(Color.GREEN);
+                    editText.setSelected(false);
                 }
             });
         }
     }
 
-    private void setColor(int posiont) {
+    private void notifyItem(int posiont) {
         if (oldPostion>=0){
             data.get(oldPostion).setSelected(false);
             notifyItemChanged(oldPostion);

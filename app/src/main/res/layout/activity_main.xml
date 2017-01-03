@@ -6,11 +6,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.example.dongpeng.myapplication.MainActivity">
-    <ViewStub
-        android:id="@+id/viewStub"
-        android:layout="@layout/viewstub"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
     <Button
         android:id="@+id/button"
         android:text="按钮"

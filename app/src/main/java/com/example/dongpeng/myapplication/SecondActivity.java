@@ -23,12 +23,12 @@ public class SecondActivity extends Activity {
         RecyclerView rv= (RecyclerView) findViewById(R.id.rv);
         rv.setItemAnimator(new MyItemAnimator());
         GridLayoutManager manager=new GridLayoutManager(this,3);
-        List<String> data=new ArrayList<>();
-        data.add("5元");
-        data.add("10元");
-        data.add("20元");
-        data.add("50元");
-        data.add("100元");
+        List<MoneyEntity> data=new ArrayList<MoneyEntity>();
+        data.add(new MoneyEntity("5元",false));
+        data.add(new MoneyEntity("10元",false));
+        data.add(new MoneyEntity("30元",false));
+        data.add(new MoneyEntity("50元",false));
+        data.add(new MoneyEntity("100元",false));
         MyAdapter adapter=new MyAdapter(data,this);
         adapter.setMoneyInputListener(new MoneyInputListener() {
             @Override

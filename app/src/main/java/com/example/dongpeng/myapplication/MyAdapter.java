@@ -23,12 +23,12 @@ import static com.example.dongpeng.myapplication.R.id.et;
 
 public class MyAdapter extends RecyclerView.Adapter {
     private MoneyInputListener listener;
-    private List<String> data;
+    private List<MoneyEntity> data;
     private EditText editText;
     private int oldPostion = -1;
     private Context context;
 
-    public MyAdapter(List<String> data, Context context) {
+    public MyAdapter(List<MoneyEntity> data, Context context) {
         this.data = data;
         this.context = context;
     }
@@ -90,33 +90,36 @@ public class MyAdapter extends RecyclerView.Adapter {
             });
 
         } else {
-            TextView textView = ((MyTextViewHolder) holder).textView;
-            textView.setText(data.get(position));
-            if (position == oldPostion) {
-                textView.setBackgroundColor(Color.GREEN);
+            final TextView textView = ((MyTextViewHolder) holder).textView;
+            textView.setText(data.get(position).getMoney());
+            if (data.get(position).isSelected()) {
+                textView.setSelected(true);
             } else {
-                textView.setBackgroundColor(Color.parseColor("#3F51B5"));
+                textView.setSelected(false);
             }
-
             textView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    listener.onGetMoneyInput(data.get(position));
+                    textView.setSelected(true);
+                    setColor(position);
+                    listener.onGetMoneyInput(data.get(position).getMoney());
                     InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
                     if (imm != null) {
                         imm.hideSoftInputFromWindow(((Activity) context).getWindow().getDecorView().getWindowToken(), 0);
                     }
                     editText.clearFocus();
                     editText.setBackgroundColor(Color.parseColor("#3F51B5"));
-                    v.setBackgroundColor(Color.GREEN);
-                    setColor(position);
+//                    v.setBackgroundColor(Color.GREEN);
                 }
             });
         }
     }
 
     private void setColor(int posiont) {
-        notifyItemChanged(oldPostion);
+        if (oldPostion>=0){
+            data.get(oldPostion).setSelected(false);
+            notifyItemChanged(oldPostion);
+        }
         oldPostion = posiont;
     }
 
@@ -159,7 +162,7 @@ public class MyAdapter extends RecyclerView.Adapter {
      */
     private String getMoneyString(String money) {
         String overMoney = "";//结果
-        if ("".equals(money)){
+        if ("".equals(money)) {
             return "0.00元";
         }
         if (money.contains(".")) {

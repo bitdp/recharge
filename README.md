@@ -1,3 +1,3 @@
 # recharge
 话费充值页
-![Image text](https://raw.github.com/bitdp/repositpry/master/recharge/imgfiles/recharge.gif)
+https://github.com/bitdp/recharge/raw/master/imgfiles/recharge.gif
